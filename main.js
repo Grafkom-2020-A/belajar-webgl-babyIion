@@ -9,10 +9,7 @@ function main() {
     var vertices = [
         -0.5, 0.5,      // titik A
         -0.5, -0.5,     // titik B
-        -0.5, -0.5,     // titik B
-        0.5, -0.5,       // titik C
-        0.5, -0.5,       // titik C
-        -0.5, 0.5      // titik A
+        0.5, -0.5       // titik C
     ];
     var positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -45,8 +42,8 @@ function main() {
     gl.clearColor(1.0, 0.0, .2, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    var primitive = gl.LINES;
+    var primitive = gl.LINE_LOOP;
     var offset = 0;
-    var count = 6; //jumlah vertex
+    var count = 3; //jumlah vertex
     gl.drawArrays(primitive, offset, count);
 }
