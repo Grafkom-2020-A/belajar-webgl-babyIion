@@ -49,19 +49,42 @@ function main() {
         0);
     gl.vertexAttribPointer(
         aColor, 
-        3, gl.FLOAT, 
+        3, 
+        gl.FLOAT, 
         false, 
         5 * Float32Array.BYTES_PER_ELEMENT, 
         2 * Float32Array.BYTES_PER_ELEMENT);
     gl.enableVertexAttribArray(aPosition);
     gl.enableVertexAttribArray(aColor);
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    // gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    // gl.clear(gl.COLOR_BUFFER_BIT);
     gl.viewport(100, 0, canvas.height, canvas.height);
 
-    var primitive = gl.TRIANGLE_FAN;
+    var primitive = gl.TRIANGLES;
     var offset = 0;
     var count = 6; //jumlah vertex
-    gl.drawArrays(primitive, offset, count);
+    // gl.drawArrays(primitive, offset, count);
+
+    var dx = 0;
+    var dy = 0;
+    var dz = 0;
+    var uDx = gl.getUniformLocation(shaderProgram, 'dx');
+    var uDy = gl.getUniformLocation(shaderProgram, 'dy');
+    var uDz = gl.getUniformLocation(shaderProgram, 'dz');
+
+    function render() {
+        dx += 0.001;
+        dy += 0.001;
+        dz += 0.001;
+        gl.uniform1f(uDx, dx);
+        gl.uniform1f(uDy, dy);
+        gl.uniform1f(uDz, dz);
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(primitive, offset, count);
+        requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
 }
